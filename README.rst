@@ -55,7 +55,7 @@ maintain this organization when adding new tests.
 
 This repository comes with a tox.ini file which is configured to run a fairly
 exhaustive set of tests. All the current unit tests run, and pass, under Python
-2.6, 2.7, 3.2, 3.3, and 3.4 interpreters. Running the default tox command will
+2.6, 2.7, 3.3, and 3.4 interpreters. Running the default tox command will
 attempt to run the tests in all these environments. In addition, tox is also
 configured to run PEP8, PyFlakes, and PyLint checks. The PyLint checks will
 make use of the .pylintrc file also included in this repository.
