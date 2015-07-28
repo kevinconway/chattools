@@ -122,7 +122,7 @@ generated-members=
 spelling-dict=en_US
 
 # List of comma separated words that should not be checked.
-spelling-ignore-words=metadata,iterable,HREF,href,hrefs,emoticon,emoticons,str,iter,iterable,html,xhtml,defusedxml,etree,http,https,daringfireball,GRUBER,regex,utf,emoti,url,urls,mary,geetha,json,JSON,mindblown
+spelling-ignore-words=metadata,iterable,HREF,href,hrefs,emoticon,emoticons,str,iter,iterable,html,xhtml,defusedxml,etree,http,https,daringfireball,GRUBER,regex,utf,emoti,url,urls,mary,geetha,json,JSON,mindblown,xml,XML
 
 # A path to a file that contains private dictionary; one word per line.
 spelling-private-dict-file=
