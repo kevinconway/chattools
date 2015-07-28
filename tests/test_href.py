@@ -163,26 +163,50 @@ def test_requests_body_provider_fail_low(status):
 
 def test_etree_title_provider_invalid_xhtml():
     """Ensure the provider returns None when the content body is invalid."""
-    body = '{"json": true}'
+    body = '<html><head><title>TEST</title></head>'
     assert href.etree_title_provider(body) is None
 
 
-def test_etree_title_provider_missing_title():
+def test_scanning_title_provider_invalid_xhtml():
+    """Ensure the provider returns a title even if the content is invalid."""
+    body = '<html><head><title>TEST</title></head>'
+    assert href.scanning_title_provider(body) == 'TEST'
+
+
+def test_scanning_title_provider_unbounded_title():
+    """Ensure the provider returns None when the title is unbounded."""
+    body = '<html><head><title>TEST</head></html>'
+    assert href.scanning_title_provider(body) is None
+
+
+@pytest.mark.parametrize(
+    'title_provider',
+    (href.etree_title_provider, href.scanning_title_provider),
+)
+def test_title_provider_missing_title(title_provider):
     """Ensure the provider returns None when the title is missing."""
     body = '<html><head></head><body></body></html>'
-    assert href.etree_title_provider(body) is None
+    assert title_provider(body) is None
 
 
-def test_etree_title_provider_fetches_title():
+@pytest.mark.parametrize(
+    'title_provider',
+    (href.etree_title_provider, href.scanning_title_provider),
+)
+def test_title_provider_fetches_title(title_provider):
     """Ensure the title is returned if present."""
     title = 'TEST PAGE'
     body = '<html><head><title>{0}</title></head><body></body></html>'.format(
         title,
     )
-    assert href.etree_title_provider(body) == title
+    assert title_provider(body) == title
 
 
-def test_etree_title_provider_fetches_first_title():
+@pytest.mark.parametrize(
+    'title_provider',
+    (href.etree_title_provider, href.scanning_title_provider),
+)
+def test_title_provider_fetches_first_title(title_provider):
     """Ensure the first title is returned if multiple are present."""
     title = 'TEST PAGE'
     title2 = 'TEST PAGE 2'
@@ -193,7 +217,7 @@ def test_etree_title_provider_fetches_first_title():
             title2,
         )
     )
-    assert href.etree_title_provider(body) == title
+    assert title_provider(body) == title
 
 
 def test_titles_uses_given_providers():
