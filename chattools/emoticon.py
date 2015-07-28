@@ -13,6 +13,8 @@ EMOTICON_REGEX = re.compile(
     re.UNICODE | re.IGNORECASE | re.MULTILINE,
 )
 
+MAX_EMOTICON_LENGTH = 15
+
 
 def emoticons_regex(text):
     """Generate an iterable of (emoticons) from a given text body.
@@ -34,7 +36,7 @@ def emoticons_regex(text):
         yield match
 
 
-def emoticons(text):
+def emoticons(text, max_length=MAX_EMOTICON_LENGTH):
     """Generate an iterable of emoticons from a given text body.
 
     This implementation bypasses the use of regex in order to filter out
@@ -45,6 +47,7 @@ def emoticons(text):
 
     Args:
         text (str): The body text of a chat message.
+        max_length (int): The maximum string length of a valid emoticon.
 
     Returns:
         iter of str: An iterable of strings that represent the emoticons used
@@ -71,6 +74,10 @@ def emoticons(text):
             result = ''.join(emoticon)[1:]
             emoticon = []
             if '(' in result or ')' in result:
+
+                continue
+
+            if not result or len(result) > max_length:
 
                 continue
 
