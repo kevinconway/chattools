@@ -1,0 +1,7 @@
+include README.rst
+include requirements.txt
+include LICENSE
+recursive-include chattools *
+recursive-exclude chattools *.pyc
+recursive-exclude chattools *.pyd
+recursive-exclude chattools *.pyo
