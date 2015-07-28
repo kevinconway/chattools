@@ -8,12 +8,11 @@ from __future__ import unicode_literals
 import re
 
 
+MAX_EMOTICON_LENGTH = 15
 EMOTICON_REGEX = re.compile(
-    r'\((\w{1,15})\)',
+    r'\((\w{{1,{0}}})\)'.format(MAX_EMOTICON_LENGTH),
     re.UNICODE | re.IGNORECASE | re.MULTILINE,
 )
-
-MAX_EMOTICON_LENGTH = 15
 
 
 def emoticons_regex(text):
