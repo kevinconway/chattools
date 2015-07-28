@@ -41,7 +41,7 @@ Metadata
     from chattools import metadata
     meta = metadata.Metadata('Some message.')
     print(tuple(meta.mentions))
-    print(tuple(meta.hrefs))
+    print(tuple(meta.links))
     print(tuple(meta.emoticons))
     print(meta.json)
 
