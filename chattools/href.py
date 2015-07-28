@@ -157,10 +157,43 @@ def etree_title_provider(body):
     return None
 
 
+def scanning_title_provider(body):
+    """Get the title of a page from its content body.
+
+    This implementation does not use a standard xml parser. Instead, it scans
+    the body text looking for content between <title> and </title>. This adds
+    the benefit of working with invalid, or non-standard, xhtml content.
+
+    Args:
+        body (str): The content body of an xhtml page.
+
+    Returns:
+        str: The text of the first <title></title> tag or None if the title
+            is not found or the body is invalid xhtml.
+    """
+    try:
+
+        start = body.index('<title>') + 7
+
+    except ValueError:
+
+        return None
+
+    try:
+
+        end = body.index('</title>', start)
+
+    except ValueError:
+
+        return None
+
+    return body[start:end]
+
+
 def titles(
         urls,
         body_provider=requests_body_provider,
-        title_provider=etree_title_provider,
+        title_provider=scanning_title_provider,
 ):
     """Generate an iterable of page titles from an iterable of hrefs.
 
