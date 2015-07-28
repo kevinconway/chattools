@@ -19,7 +19,6 @@ setup(
     license='MIT',
     packages=find_packages(exclude=['tests', 'build', 'dist', 'docs']),
     install_requires=[
-        'six',
         'requests',
         'defusedxml',
     ],
