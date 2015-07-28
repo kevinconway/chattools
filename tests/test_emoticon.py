@@ -145,3 +145,35 @@ def test_emoticon_skips_unbounded_parens():
         emoticon.emoticons('(emoti (con).')
     )
     assert not results
+
+
+@pytest.mark.parametrize(
+    'emoticons',
+    (emoticon.emoticons, emoticon.emoticons_regex),
+)
+def test_emoticon_skips_too_short(emoticons):
+    """Ensure emoticons are not detected if they contain no content.
+
+    Example: ().
+    Results: ()
+    """
+    results = tuple(
+        emoticons('().')
+    )
+    assert not results
+
+
+@pytest.mark.parametrize(
+    'emoticons',
+    (emoticon.emoticons, emoticon.emoticons_regex),
+)
+def test_emoticon_skips_too_long(emoticons):
+    """Ensure emoticons are not detected if they contain too much content.
+
+    Example: (1234567890123456).
+    Results: ()
+    """
+    results = tuple(
+        emoticons('(1234567890123456).')
+    )
+    assert not results
